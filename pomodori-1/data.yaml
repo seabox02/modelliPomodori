@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['6kp_peduncle', '6kp_petiole', 'MainStem', 'tomato']
+
+roboflow:
+  workspace: pomodori-gqsky
+  project: pomodori
+  version: 1
+  license: Private
+  url: https://app.roboflow.com/pomodori-gqsky/pomodori/1
