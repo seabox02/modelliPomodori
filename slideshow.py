@@ -2,8 +2,8 @@ from ultralytics import YOLO
 import cv2
 import os
 
-folder_path = 'pomodori-1/valid/images' 
-model = YOLO('runs/segment/modello_pomodori/weights/best.pt')
+folder_path = 'pomodori-1/test/images' 
+model = YOLO('runs/segment/modello_migliore/weights/best.pt')
 
 
 images = [f for f in os.listdir(folder_path) if f.endswith('.jpg') or f.endswith('.jpeg')]
@@ -19,6 +19,7 @@ print(" [ Q ] -> Esci")
 
 while True:
     img_name = images[current_index]
+    
     img_path = os.path.join(folder_path, img_name)
     
     frame = cv2.imread(img_path)
@@ -30,9 +31,12 @@ while True:
 
     frame_resized = ridimensiona_smart(frame)
 
-    results = model.predict(frame_resized, conf=0.4, verbose=False)
+    results = model.predict(frame_resized, conf=0.40, verbose=False)
 
     annotated_frame = results[0].plot()
+
+    cv2.putText(annotated_frame, f"Img: {current_index+1}/{len(images)} - {img_name}", 
+                (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
     cv2.imshow("Slideshow Pomodori (Auto-Size)", annotated_frame)
 
