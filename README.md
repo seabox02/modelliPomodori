@@ -10,6 +10,7 @@ Come possiamo vedere dal grafico qui sotto, il modello migliore è la versione m
 
 ![Grafico Evoluzione Prestazioni](evolution_chart.png)
 
-Oltre al dataset di addestramento, è possibile testare i vari modelli su un ulteriore dataset, [datasetTest](datasetTest). Si vede come il modello reagisca correttamente anche ad immagini che non aveva mai visto prima. ()
+Oltre al dataset di addestramento, è possibile testare i vari modelli su un ulteriore dataset, [datasetTest](datasetTest). Si vede come il modello reagisca correttamente anche ad immagini che non aveva mai visto prima. 
+[sito secondo dataset](https://datasetninja.com/tomatod#images)
 
 Per l'adattamento del dataset di addestramento [datasetPomdori](datasetPomodori) è stato utilizzato [roboflow](https://roboflow.com/).
