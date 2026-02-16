@@ -7,34 +7,31 @@ files = {
     '1. Nano (75 ep)': 'runs/segment/modello_nano_75/results.csv',
     '2. Small (50 ep)': 'runs/segment/modello_small_50/results.csv',
     '3. Medium (10 ep)': 'runs/segment/modello_medium_10/results.csv',
-    '4. Medium (50 ep)': 'runs/segment/modello_medium_50/results.csv' 
+    '4. Medium (50 ep)': 'runs/segment/modello_medium_50/results.csv',
+    '5. Medium_Ibrido (50 ep)': 'runs/segment/modello_medium_ibrido/results.csv',
 }
 
 dataframes = {}
 
 plt.figure(figsize=(12, 6))
 
-# Colori progressivi (Grigio -> Blu -> Arancio -> Rosso/Verde)
-colors = ['gray', 'blue', 'orange', 'green']
-styles = [':', '--', '-.', '-'] # Dotted, Dashed, Dash-dot, Solid
+colors = ['gray', 'blue', 'orange', 'green', 'purple']
+styles = [':', '--', '-.', '-', ":"] 
 
 # Preparo i dati
 for i, (model_name, file_path) in enumerate(files.items()):
     try:
         if os.path.exists(file_path):
             df = pd.read_csv(file_path)
-            # Pulisco i nomi delle colonne
             df.columns = [c.strip() for c in df.columns]
             
-            # Cerco la colonna mAP50 corretta
             if 'metrics/mAP50(M)' in df.columns:
                 col_map = 'metrics/mAP50(M)'
             elif 'metrics/mAP50(B)' in df.columns:
                 col_map = 'metrics/mAP50(B)'
             else:
-                continue # Salta se non trova la metrica
-            
-            # Plot
+                continue 
+
             plt.plot(df[col_map], label=model_name, color=colors[i], linestyle=styles[i], linewidth=2 if i==3 else 1.5)
             
         else:
@@ -43,7 +40,7 @@ for i, (model_name, file_path) in enumerate(files.items()):
     except Exception as e:
         print(f"Errore con {model_name}: {e}")
 
-plt.title('Evoluzione delle Prestazioni: Da Nano a Medium', fontsize=14)
+plt.title('Evoluzione delle prestazioni: Da Nano a Medium', fontsize=14)
 plt.xlabel('Epoche', fontsize=12)
 plt.ylabel('Precisione (mAP50)', fontsize=12)
 plt.legend(fontsize=10)
