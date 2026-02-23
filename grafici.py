@@ -6,7 +6,7 @@ import os
 files = {
     '1. Nano (75 ep)': 'runs/segment/modello_nano_75/results.csv',
     '2. Small (50 ep)': 'runs/segment/modello_small_50/results.csv',
-    '3. Medium (10 ep)': 'runs/segment/modello_medium_10/results.csv',
+    '3. Medium_26 (50 ep)': 'runs/segment/nuovoModello/results.csv',
     '4. Medium (50 ep)': 'runs/segment/modello_medium_50/results.csv',
     '5. Medium_Ibrido (50 ep)': 'runs/segment/modello_medium_ibrido/results.csv',
 }
