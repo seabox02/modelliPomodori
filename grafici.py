@@ -4,19 +4,17 @@ import os
 
 # Definisco i percorsi dei 4 file rappresentativi della "Storia" del progetto
 files = {
-    '1. Nano (75 ep)': 'runs/segment/modello_nano_75/results.csv',
-    '2. Small (50 ep)': 'runs/segment/modello_small_50/results.csv',
-    '3. Medium_26 (50 ep)': 'runs/segment/nuovoModello/results.csv',
-    '4. Medium (50 ep)': 'runs/segment/modello_medium_50/results.csv',
-    '5. Medium_Ibrido (50 ep)': 'runs/segment/modello_medium_ibrido/results.csv',
+    '1. Medium (100 ep)': 'runs/segment/modello_medium_100/results.csv',
+    '2. Large (100 ep)': 'runs/segment/modello_large_100/results.csv',
+    '3. Extra large 11 (150 ep)': 'runs/segment/modello_extralarge_150/results.csv',
 }
 
 dataframes = {}
 
 plt.figure(figsize=(12, 6))
 
-colors = ['gray', 'blue', 'orange', 'green', 'purple']
-styles = [':', '--', '-.', '-', ":"] 
+colors = ['blue', 'orange', 'purple']
+styles = [':',  '-', ":"] 
 
 # Preparo i dati
 for i, (model_name, file_path) in enumerate(files.items()):
