@@ -40,9 +40,9 @@ Notiamo che in realtà, in questo caso almeno, che non c'è una grande variazion
 Le metriche utilizzate rappresentano:
  - mAP50, _mean Average Precision 50_, è la precisione media calcolata con una soglia di sovrapposizine del 50% tra la predizione del modello e l'oggetto reale. Ci dice se il sistema è in grade di visualizzare l'oggetto cercato.
  - mAPA50-95, è la media della precisione calcolata su diverse soglie di rigore che vanno dal 50% al 95%. Ci dice quanto è bravo il modello nel predire i contorni dell'oggetto.
- - Precision, indica la capacità di non generare falsi positivi, è data dal rapporto:  $$ \frac{True Positives}{True Positives + False Positives} $$
+ - Precision, indica la capacità di non generare falsi positivi, è data dal rapporto:  $$ /frac{True Positives}{True Positives + False Positives} $$
  - Recall, indica la capacità di individuare tutti gli oggetti presenti, è dato dal rapporto:
- $$ \frac{True Positives}{True Positives + False Negatives} $$
+ $$ /frac{True Positives}{True Positives + False Negatives} $$
 
 Qui vediamo invece come varia la precisione dei modelli addestrati con YOLO26-large
 
