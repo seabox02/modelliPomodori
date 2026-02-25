@@ -3,7 +3,7 @@ import cv2
 import os
 
 folder_path = 'datasetTest/test' 
-model = YOLO('runs/segment/modello_medium_50/weights/best.pt') # per visualizzare un altro modello modificare la directory con quella del modello voluto
+model = YOLO('runs/segment/modello_extralarge_150/weights/best.pt') # per visualizzare un altro modello modificare la directory con quella del modello voluto
 
 
 images = [f for f in os.listdir(folder_path) if f.endswith('.jpg') or f.endswith('.jpeg')]
