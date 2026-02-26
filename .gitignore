@@ -1,0 +1,8 @@
+*.pt
+*.pth
+*.onnx
+*.engine
+*.weights
+
+README.dataset.txt
+README.roboflow.txt

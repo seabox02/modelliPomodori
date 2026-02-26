@@ -2,40 +2,44 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# Definisco i percorsi dei 4 file rappresentativi della "Storia" del progetto
-files = {
-    '1. Nano (75 ep)': 'runs/segment/modello_nano_75/results.csv',
-    '2. Small (50 ep)': 'runs/segment/modello_small_50/results.csv',
-    '3. Medium (10 ep)': 'runs/segment/modello_medium_10/results.csv',
-    '4. Medium (50 ep)': 'runs/segment/modello_medium_50/results.csv' 
+files11 = {
+    '1. Medium (100 ep)': 'runs/segment11/modello11_medium_100/results.csv',
+    '2. Large (100 ep)': 'runs/segment11/modello11_large_100/results.csv',
+    '3. ExtraLarge (150 ep)': 'runs/segment11/modello11_extralarge_150/results.csv',
+    '4. Ibrido (150 ep)': 'runs/segment11/ibrido11_med_attenzione_150/results.csv',
+}
+
+files26 = {
+    '1. Medium (150 ep)': 'runs/segment26/modello26_medium_150/results.csv',
+    '2. Large (150 ep)': 'runs/segment26/modello26_large_150/results.csv',
+    '3. ExtraLarge (150 ep)': 'runs/segment26/modello26_extraLarge_150/results.csv'
+}
+
+files_medium_26 = {
+    '1. 16 batch (150 ep)': 'runs/segment26/medium/modello26_medium_150/results.csv',
+    '2. 32 batch (150 ep)': 'runs/segment26/medium/modello26_medium_150_32/results.csv',
+    '3. 64 batch (150 ep)': 'runs/segment26/medium/modello26_medium_150_64/results.csv'
 }
 
 dataframes = {}
 
 plt.figure(figsize=(12, 6))
 
-# Colori progressivi (Grigio -> Blu -> Arancio -> Rosso/Verde)
-colors = ['gray', 'blue', 'orange', 'green']
-styles = [':', '--', '-.', '-'] # Dotted, Dashed, Dash-dot, Solid
+colors11 = ['blue', 'orange', 'purple', 'green']
+colors26 = ['blue', 'orange', 'purple']
 
-# Preparo i dati
-for i, (model_name, file_path) in enumerate(files.items()):
+for i, (model_name, file_path) in enumerate(files_medium_26.items()): # modifica qui per scegliere che modelli visualizzare (files11 o files26)
     try:
         if os.path.exists(file_path):
             df = pd.read_csv(file_path)
-            # Pulisco i nomi delle colonne
             df.columns = [c.strip() for c in df.columns]
             
-            # Cerco la colonna mAP50 corretta
             if 'metrics/mAP50(M)' in df.columns:
                 col_map = 'metrics/mAP50(M)'
-            elif 'metrics/mAP50(B)' in df.columns:
-                col_map = 'metrics/mAP50(B)'
             else:
-                continue # Salta se non trova la metrica
-            
-            # Plot
-            plt.plot(df[col_map], label=model_name, color=colors[i], linestyle=styles[i], linewidth=2 if i==3 else 1.5)
+                continue 
+
+            plt.plot(df[col_map], label=model_name, color=colors26[i], linestyle='-', linewidth=1.5) # modifica anche qui i colori come sopra
             
         else:
             print(f"File non trovato: {file_path}")
@@ -43,7 +47,7 @@ for i, (model_name, file_path) in enumerate(files.items()):
     except Exception as e:
         print(f"Errore con {model_name}: {e}")
 
-plt.title('Evoluzione delle Prestazioni: Da Nano a Medium', fontsize=14)
+plt.title('Evoluzione train modelli YOLO26-medium', fontsize=14)
 plt.xlabel('Epoche', fontsize=12)
 plt.ylabel('Precisione (mAP50)', fontsize=12)
 plt.legend(fontsize=10)
@@ -51,7 +55,7 @@ plt.grid(True, alpha=0.3)
 plt.tight_layout()
 
 # Salvo l'immagine
-output_filename = 'evolution_chart.png'
+output_filename = 'evolution_chart_medium26.png'
 plt.savefig(output_filename, dpi=300)
 
 print(f"Grafico salvato come {output_filename}")

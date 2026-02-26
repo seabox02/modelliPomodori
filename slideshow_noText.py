@@ -5,7 +5,7 @@ import numpy as np
 import sys
 
 folder_path = 'datasetTest/test' 
-model_path = 'runs/segment/modello_medium_50/weights/best.pt' # per visualizzare un altro modello modificare la directory con quella del modello voluto
+model_path = 'runs/segment/modello_medium_ibrido/weights/best.pt' # per visualizzare un altro modello modificare la directory con quella del modello voluto
 
 COLOR_MAP = {
     'tomato':      (0, 0, 255),     # Rosso
