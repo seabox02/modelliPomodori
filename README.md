@@ -46,6 +46,12 @@ Le metriche utilizzate rappresentano:
 
 Qui vediamo invece come varia la precisione dei modelli addestrati con YOLO26-large
 
+| Modello     |   mAP50 |   mAP50-95 |   Precision |   Recall |
+|:------------|--------:|-----------:|------------:|---------:|
+| YOLO26l_B16 |   0.675 |      0.291 |       0.715 |    0.663 |
+| YOLO26l_B32 |   0.69  |      0.288 |       0.728 |    0.676 |
+| YOLO26l_B64 |   0.702 |      0.299 |       0.72  |    0.674 |
+
 In questo grafico confrontiamo la versione migliore di YOLO11 e la versione migliore di YOLO26, dove con migliore intendiamo quella che ha ottenuto una precisione più alta sul nostro dataset di validazione.
 
 

@@ -3,9 +3,9 @@ from ultralytics import YOLO
 import torch
 
 model_paths = {
-    "YOLO26m_B16": "runs/segment26/medium/modello26_medium_150/weights/best.pt",
-    "YOLO26m_B32": "runs/segment26/medium/modello26_medium_150_32/weights/best.pt",
-    "YOLO26m_B64": "runs/segment26/medium/modello26_medium_150_64/weights/best.pt"
+    "YOLO26l_B16": "runs/segment26/large/modello26_large_150/weights/best.pt",
+    "YOLO26l_B32": "runs/segment26/large/modello26_large_150_32/weights/best.pt",
+    "YOLO26l_B64": "runs/segment26/large/modello26_large_150_64/weights/best.pt"
 }
 
 dataset_yaml = "datasetPomodori/data.yaml"
