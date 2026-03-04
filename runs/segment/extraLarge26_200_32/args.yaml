@@ -13,7 +13,7 @@ cache: false
 device: null
 workers: 8
 project: null
-name: extraLarge26_200_32
+name: extraLarge26_200_32Prova2
 exist_ok: false
 pretrained: true
 optimizer: auto
@@ -25,7 +25,7 @@ rect: false
 cos_lr: true
 close_mosaic: 10
 resume: false
-amp: true
+amp: false
 fraction: 1.0
 profile: false
 freeze: null
@@ -71,7 +71,7 @@ simplify: true
 opset: null
 workspace: null
 nms: false
-lr0: 0.001
+lr0: 0.0005
 lrf: 0.01
 momentum: 0.937
 weight_decay: 0.0005
@@ -106,4 +106,4 @@ auto_augment: randaugment
 erasing: 0.4
 cfg: null
 tracker: botsort.yaml
-save_dir: /home/marcassa/modelliPomodori/runs/segment/extraLarge26_200_32
+save_dir: /home/marcassa/modelliPomodori/runs/segment/extraLarge26_200_32Prova2
