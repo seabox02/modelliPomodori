@@ -2,22 +2,9 @@
 
 Nel seguente progetto sono stati sviluppati nuovi modelli di riconoscimento e segmentazione su dataset di pomodori utilizzando **YOLO26** con architetture di diverse dimensioni (small, large, extraLarge) addestrate su **200 epoche** e **batch size 32**. 
 
-I modelli precedenti sviluppati con YOLO26 addestrati su 150 epoche si possono trovare [qui](versioniPrecedenti/runs/segment26).
+I modelli precedenti sviluppati con YOLO26 si possono trovare [qui](versioniPrecedenti/runs/segment26).
 
-### Miglioramenti rispetto alla versione precedente
-
-I nuovi modelli sono stati addestrati con i seguenti **parametri principali**:
-
-| Parametro | Versione Attuale | Versione Precedente |
-|:---------|:----------:|:----------:|
-| **Epoche** | 200 | 150 |
-| **Batch Size** | 32 | 16 (ExtraLarge) / 64 (Large) |
-| **Image Size** | 640 | 448 (ExtraLarge) / 640 (Large) |
-| **Learning Rate Schedule** | cos_lr: True | cos_lr: False |
-| **Cache** | True | False |
-| **Dataset** | datasetAggiornato | datasetPomodori |
-
-Inoltre, è stata aggiunta la **cosine annealing learning rate** (cos_lr) che aiuta a migliorare la convergenza del modello durante l'allenamento, e il **caching del dataset** per velocizzare il caricamento delle immagini.
+ È stata aggiunta la **cosine annealing learning rate** (cos_lr) che aiuta a migliorare la convergenza del modello durante l'allenamento.
 
 ### Evoluzione delle metriche durante l'addestramento
 
@@ -58,7 +45,7 @@ In questa metrica il modello Large è rimasto leggermente indietro rispetto al p
 
 ### Visualizzazione comparativa
 
-Nel seguente grafico vediamo un confronto visuale tra il miglior modello nuovo (Large B32) e il miglior modello precedente:
+Nel seguente grafico vediamo un confronto visuale tra il miglior modello nuovo (Large B32) e il miglior modello precedente. presi all'ultima epoca di addestramento. …:
 
 ![Grafico Confronto Modelli](runs/segment/comparison_chart_200ep.png)
 
