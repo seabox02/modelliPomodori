@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['6kp_peduncle', '6kp_petiole', 'MainStem', 'tomato']
+
+roboflow:
+  workspace: pomodori-gqsky
+  project: pomodori
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/pomodori-gqsky/pomodori/dataset/2

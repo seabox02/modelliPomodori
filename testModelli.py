@@ -3,22 +3,22 @@ from ultralytics import YOLO
 import torch
 
 model_paths = {
-    "YOLO26l_B16": "runs/segment26/large/modello26_large_150/weights/best.pt",
-    "YOLO26l_B32": "runs/segment26/large/modello26_large_150_32/weights/best.pt",
-    "YOLO26l_B64": "runs/segment26/large/modello26_large_150_64/weights/best.pt"
+    "26l_newData": "runs/segment/large26_200_32/weights/best.pt",
+    "26m_newData": "runs/segment/medium26_200_32/weights/best.pt",
 }
 
-dataset_yaml = "datasetPomodori/data.yaml"
+dataset_yaml = "datasetAggiornato/data.yaml"
 results_list = []
 
 for name, path in model_paths.items():
-    print(f"\n--- Valutazione Modello: {name} ---")
+    print(f"/n--- Valutazione Modello: {name} ---")
     
     model = YOLO(path)
     
     metrics = model.val(
         data=dataset_yaml,
-        split='test',       
+        split='test',   
+        confidence=0.2,     # per i prossimi test proviamo ad aumentare la confidenza
         batch=1,            # Batch size 1 per massima precisione per immagine
         imgsz=448,          # Coerente con il training
         device=0,           # Utilizza la tua GPU locale
@@ -36,7 +36,7 @@ for name, path in model_paths.items():
 
 # Creazione Tabella Comparativa
 df = pd.DataFrame(results_list)
-print("\n### Risultati Comparativi su Test Set ###")
+print("/n### Risultati Comparativi su Test Set ###")
 print(df.to_string(index=False))
 
 

@@ -3,6 +3,7 @@
 *.onnx
 *.engine
 *.weights
+*.txt
 
 README.dataset.txt
 README.roboflow.txt
