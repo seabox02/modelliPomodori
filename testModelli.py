@@ -3,8 +3,9 @@ from ultralytics import YOLO
 import torch
 
 model_paths = {
-    "26l_newData": "runs/segment/large26_200_32/weights/best.pt",
-    "26m_newData": "runs/segment/medium26_200_32/weights/best.pt",
+    "26s_newData": "runs/segment/modelliNuovoDataset/small26_200_32/weights/best.pt",
+    "26m_newData": "runs/segment/modelliNuovoDataset/medium26_200_32/weights/best.pt",
+    "26l_newData": "runs/segment/modelliNuovoDataset/large26_200_32/weights/best.pt",
 }
 
 dataset_yaml = "datasetAggiornato/data.yaml"

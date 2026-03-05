@@ -18,36 +18,20 @@ Nel seguente grafico invece vediamo l'evoluzione delle metriche di **Mask Segmen
 
 ### Risultati finali dei modelli
 
-Nella tabella seguente visualizziamo le metriche finali riguardo le **bounding box** sui modelli nuovi, confrontati con il miglior modello della versione precedente:
-
-| Modello     |   mAP50 |   mAP50-95 |   Precision |   Recall |   
-|:------------|--------:|-----------:|------------:|---------:|
-| **YOLO26l_B32_200ep** | **0.753** |      **0.464** |     **0.750** |    **0.677** |
-| YOLO26s_B32_200ep |   0.703 |      0.414 |       0.743 |    0.640 |
-| YOLO26x_B32_154ep |   0.749 |      0.461 |       0.721 |    0.664 |
-| *Prev: YOLO26x_B16_150ep* | *0.785* |      *0.498* |     *0.809* |    *0.716* |
-
-Come si vede dalla tabella, il modello **Large con batch 32 su 200 epoche** è il migliore tra i nuovi modelli, anche se non supera completamente il precedente ExtraLarge (batch 16). Tuttavia, va notato che il modello precedente:
-- Utilizzava un batch size più piccolo (16 vs 32), che comporta gradienti più rumorosi
-- Aveva un image size più piccolo (448 vs 640)
-- Non utilizzava cosine annealing per il learning rate
-
-Nella tabella seguente invece abbiamo le metriche riguardo le **maschere di segmentazione**:
+Nella tabella seguente visualizziamo le metriche finali riguardo le **maschere di segmentazione** sui modelli nuovi, confrontati tra di loro, sul dataset di test con una confidenza del 20%:
 
 | Modello     |   mAP50 |   mAP50-95 |   Precision |   Recall |
 |:------------|--------:|-----------:|------------:|---------:|
-| **YOLO26l_B32_200ep** | **0.685** |    **0.344** |       **0.717** |    **0.636** |
-| YOLO26s_B32_200ep |   0.629 |      0.297 |       0.738 |    0.576 |
-| YOLO26x_B32_154ep |   0.667 |      0.335 |       0.748 |    0.602 |
-| *Prev: YOLO26x_B16_150ep* | *0.674* |      *0.346* |     *0.748* |    *0.636* |
+| 26s_newData |   0.614 |      0.295 |       0.644 |    0.532 |
+| 26m_newData |   0.659 |      0.306 |       0.703 |    0.571 |
+| 26l_newData |   0.662 |      0.317 |       0.703 |    0.579 |
 
-In questa metrica il modello Large è rimasto leggermente indietro rispetto al precedente ExtraLarge, ma è comunque competitivo. La differenza principale è che il modello ExtraLarge ha una maggiore capacità di rete, il che comporta un numero maggiore di parametri.
+Confrontando il modello addestrato con il dataset aggiornato notiam un leggero peggioramento rispetto al precedente:
 
-### Visualizzazione comparativa
-
-Nel seguente grafico vediamo un confronto visuale tra il miglior modello nuovo (Large B32) e il miglior modello precedente. presi all'ultima epoca di addestramento. …:
-
-![Grafico Confronto Modelli](runs/segment/comparison_chart_200ep.png)
+| Modello     |   mAP50 |   mAP50-95 |   Precision |   Recall |
+|:------------|--------:|-----------:|------------:|---------:|
+| 26l         |   0.719 |      0.338 |       0.727 |    0.644 |
+| 26l_newData |   0.662 |      0.317 |       0.703 |    0.579 |
 
 ### Spiegazione delle metriche
 
@@ -61,15 +45,6 @@ Le metriche utilizzate rappresentano:
 
 - **Recall**, indica la capacità di individuare tutti gli oggetti presenti, è dato dal rapporto:
  $$\frac{True Positives}{True Positives + False Negatives} $$
-
-### Stato dei modelli
-
-Attualmente sono stati addestrati i seguenti modelli:
-
-- ✅ **Large (B32, 200 epoche)** - Completamente addestrato
-- ✅ **Small (B32, 200 epoche)** - Completamente addestrato  
-- ⏳ **ExtraLarge (B32, 154 epoche)** - Addestramento interrotto (sarà completato a 200 epoche)
-- ⏳ **Medium (B32)** - Addestramento da completare
 
 Il modello **Large** risulta essere il migliore tra i nuovi modelli addestrati, con prestazioni stabili su entrambe le metriche di bounding box e mask segmentation.
 
