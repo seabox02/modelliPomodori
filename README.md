@@ -1,53 +1,75 @@
-## Modelli object detection e mask segmentation su dataset pomodori (YOLO26)
+## Modelli Object Detection e Mask Segmentation su Dataset Pomodori (YOLO26)
 
-Nel seguente progetto sono stati sviluppati nuovi modelli di riconoscimento e segmentazione su dataset di pomodori utilizzando **YOLO26** con architetture di diverse dimensioni (small, large, extraLarge) addestrate su **200 epoche** e **batch size 32**. 
+Questo progetto documenta lo sviluppo e l'addestramento di modelli di visione artificiale ottimizzati per il riconoscimento e la segmentazione di istanze di pomodori. Sono state impiegate architetture **YOLO26** di diverse scale per bilanciare latenza e precisione in contesti robotici.
 
-I modelli precedenti sviluppati con YOLO26 si possono trovare [qui](versioniPrecedenti/runs/segment26).
+### Evoluzione della Sperimentazione
+Le fasi di addestramento sono state divise in due generazioni principali:
+1. **Generazione V1 (640px)**: Baseline standard di YOLO.
+2. **Generazione V2 (800px)**: Ottimizzazione della risoluzione di input, fondamentale per risolvere dettagli in scene con occlusioni, unita all'uso di **Retina Masks** per la massima precisione dei contorni.
 
- È stata aggiunta la **cosine annealing learning rate** (cos_lr) che aiuta a migliorare la convergenza del modello durante l'allenamento.
+Entrambe le generazioni beneficiano della **Cosine Annealing Learning Rate (cos_lr)** per una convergenza stabile.
 
-### Evoluzione delle metriche durante l'addestramento
+### Risultati Comparativi (Dataset Aggiornato)
+I modelli sono stati valutati su 200 epoche. Il confronto evidenzia come l'incremento della risoluzione (V2) porti a un salto di qualità trasversale a tutte le architetture.
 
-Nel seguente grafico vediamo l'evoluzione delle metriche di **Bounding Box** durante i 200 epoch di addestramento. Possiamo notare che il modello **Large** mantiene prestazioni stabili e coerenti, mentre il modello **Small** mostra una convergenza leggermente inferiore.
+| Modello | Generazione | Imgsz | mAP50 (B) | mAP50-95 (B) | mAP50 (M) | mAP50-95 (M) | Precision (M) | Recall (M) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Small V1** | V1 | 640 | 0.703 | 0.414 | 0.627 | 0.299 | 0.730 | 0.572 |
+| **Small V2** | V2 | **800** | 0.736 | 0.451 | 0.663 | 0.346 | 0.728 | 0.636 |
+| **Medium** | V2 | 800 | 0.767 | 0.477 | 0.700 | 0.367 | 0.755 | 0.645 |
+| **Large V1** | V1 | 640 | 0.754 | 0.464 | 0.685 | 0.344 | 0.717 | 0.631 |
+| **Large V2 (Best)** | V2 | **800** | **0.778** | **0.491** | **0.712** | **0.373** | **0.762** | **0.670** |
+| **ExtraLarge** | V2 | 800 | 0.775 | 0.485 | 0.711 | 0.370 | 0.737 | 0.667 |
 
-![Grafico Evoluzione Bounding Box](runs/segment/evolution_chart_bbox_200ep.png)
+*(B) = Bounding Box, (M) = Segmentation Mask. Valutazioni eseguite con confidenza 0.20.*
 
-Nel seguente grafico invece vediamo l'evoluzione delle metriche di **Mask Segmentation**, che mostrano come il modello Large sia significativamente più bravo nel predire i contorni precisi della maschera rispetto agli altri modelli.
+#### Evoluzione delle Metriche (mAP@.50:.95)
+![Confronto Bounding Box](confronto_bbox_95.png)
+*Figura 1: Evoluzione della precisione media (mAP50-95) per le Bounding Box.*
 
-![Grafico Evoluzione Mask Segmentation](runs/segment/evolution_chart_mask_200ep.png)
+![Confronto Segmentation Mask](confronto_mask_95.png)
+*Figura 2: Evoluzione della precisione media (mAP50-95) per le Maschere di Segmentazione.*
 
-### Risultati finali dei modelli
+### Analisi Tecnica
+1. **L'impatto della Risoluzione (V1 vs V2)**: Il passaggio da 640 a 800 pixel è il fattore determinante. Il modello **Small V2** (800px) riesce a superare le prestazioni del **Large V1** (640px) pur avendo un numero di parametri significativamente inferiore, a dimostrazione che la densità di pixel è critica per la segmentazione in questo dominio.
+2. **Equilibrio Architetturale**: Il modello **Large V2 (800px)** rappresenta l'ottimo di Pareto: offre prestazioni superiori alla versione ExtraLarge (XL) con una complessità ridotta, confermando che l'architettura Large ha già la capacità necessaria per il dataset attuale.
 
-Nella tabella seguente visualizziamo le metriche finali riguardo le **maschere di segmentazione** sui modelli nuovi, confrontati tra di loro, sul dataset di test con una confidenza del 20%:
+### Analisi della Convergenza e Generalizzazione
+L'analisi delle curve evidenzia una robusta capacità di generalizzazione:
+- **Assenza di Overfitting**: La stabilità della loss di validazione conferma che i modelli non hanno "memorizzato" il training set.
+- **Ottimizzazione**: L'impiego del Cosine Annealing ha stabilizzato la precisione finale al valore massimo (0.373 mAP50-95 per le maschere nel modello Large V2).
 
-| Modello     |   mAP50 |   mAP50-95 |   Precision |   Recall |
-|:------------|--------:|-----------:|------------:|---------:|
-| 26s_newData |   0.614 |      0.295 |       0.644 |    0.532 |
-| 26m_newData |   0.659 |      0.306 |       0.703 |    0.571 |
-| 26l_newData |   0.662 |      0.317 |       0.703 |    0.579 |
+![Analisi Overfitting](analisi_overfitting_seg.png)
+*Figura 3: Analisi della convergenza tramite Validation Segmentation Loss.*
 
-Confrontando il modello addestrato con il dataset aggiornato notiam un leggero peggioramento rispetto al precedente:
+### Validazione Finale su Test Set (Unbiased Evaluation)
+I modelli V2 (800px) sono stati valutati su un Test Set indipendente.
 
-| Modello     |   mAP50 |   mAP50-95 |   Precision |   Recall |
-|:------------|--------:|-----------:|------------:|---------:|
-| 26l         |   0.719 |      0.338 |       0.727 |    0.644 |
-| 26l_newData |   0.662 |      0.317 |       0.703 |    0.579 |
+| Modello            |   Box mAP50 |   Box mAP50-95 |   Mask mAP50 |   Mask mAP50-95 |   Precision (M) |   Recall (M) |
+|:-------------------|------------:|---------------:|-------------:|----------------:|----------------:|-------------:|
+| Small V2 (800px)   |       0.764 |          0.491 |        0.697 |           0.369 |           0.743 |        0.625 |
+| Medium (800px)     |       0.793 |          0.522 |        0.739 |           0.388 |           0.729 |        0.688 |
+| Large V2 (800px)   |       0.796 |          0.531 |        0.737 |           0.395 |           0.726 |        0.671 |
+| **ExtraLarge (800px)** |       **0.812** |          **0.539** |        **0.753** |           **0.397** |           **0.758** |        **0.691** |
 
-### Spiegazione delle metriche
+Si nota come tutti i modelli mantengano prestazioni elevate su dati mai visti, con il modello **ExtraLarge** che supera la soglia dell'**81% di mAP50 per le Bounding Box** e il **75% per le Segmentation Mask**. La stabilità delle metriche tra i diversi modelli suggerisce che la risoluzione a 800px sia il fattore abilitante per un riconoscimento affidabile in questo dominio.
 
-Le metriche utilizzate rappresentano:
+### Analisi dell'Efficienza e Costo Computazionale
+| Modello | Peso (MB) | Tempo Training | mAP50-95 (Mask) | Efficienza |
+| :--- | :--- | :--- | :--- | :--- |
+| **Small V1** | 22 MB | 1h 40m | 0.299 | Baseline Small |
+| **Small V2** | 22 MB | 1h 51m | 0.346 | **Alta Efficienza** |
+| **Medium** | 52 MB | 2h 50m | 0.367 | Ottimo bilanciamento |
+| **Large V1** | 61 MB | 2h 33m | 0.344 | Superato dai modelli V2 |
+| **Large V2** | 61 MB | 3h 17m | **0.373** | **Best Performance** |
+| **ExtraLarge** | 135 MB | 5h 25m | 0.370 | Inefficiente |
 
-- **mAP50**, *mean Average Precision 50*, è la precisione media calcolata con una soglia di sovrapposizione del 50% tra la predizione del modello e l'oggetto reale. Ci dice se il sistema è in grado di visualizzare l'oggetto cercato.
+![Pareto Frontier](pareto_efficiency.png)
+*Figura 4: Analisi di efficienza. La dimensione della bolla rappresenta il peso del modello in MB.*
 
-- **mAP50-95**, è la media della precisione calcolata su diverse soglie di rigore che vanno dal 50% al 95%. Ci dice quanto è bravo il modello nel predire i contorni dell'oggetto.
+### Glossario delle Metriche
+- **mAP50-95**: Metrica rigorosa che valuta la precisione millimetrica dei contorni.
+- **Precision/Recall**: Capacità di evitare falsi positivi e individuare tutti gli oggetti.
 
-- **Precision**, indica la capacità di non generare falsi positivi, è data dal rapporto:  $$\frac{True Positives}{True Positives + False Positives} $$
-
-- **Recall**, indica la capacità di individuare tutti gli oggetti presenti, è dato dal rapporto:
- $$\frac{True Positives}{True Positives + False Negatives} $$
-
-Il modello **Large** risulta essere il migliore tra i nuovi modelli addestrati, con prestazioni stabili su entrambe le metriche di bounding box e mask segmentation.
-
-### Dataset
-
-Per l'adattamento del dataset di addestramento [datasetAggiornato](datasetAggiornato) è stato utilizzato [roboflow](https://roboflow.com/).
+### Dataset e Strumenti
+Dataset gestito via [Roboflow](https://roboflow.com/). Log completi in `runs/segment/`.

@@ -1,49 +1,86 @@
 import pandas as pd
 from ultralytics import YOLO
 import torch
+import os
 
-model_paths = {
-    "26s_newData": "runs/segment/modelliNuovoDataset/small26_200_32/weights/best.pt",
-    "26m_newData": "runs/segment/modelliNuovoDataset/medium26_200_32/weights/best.pt",
-    "26l_newData": "runs/segment/modelliNuovoDataset/large26_200_32/weights/best.pt",
+# Definiamo solo i modelli a 800px (Generazione V2) disponibili
+model_configs = {
+    "Small V2 (800px)": {
+        "path": "runs/segment/s26Finale/weights/best.pt",
+        "imgsz": 800
+    },
+    "Medium (800px)": {
+        "path": "runs/segment/m26Finale/weights/best.pt",
+        "imgsz": 800
+    },
+    "Large V2 (800px)": {
+        "path": "runs/segment/Nuovol26/weights/best.pt",
+        "imgsz": 800
+    },
+    "ExtraLarge (800px)": {
+        "path": "runs/segment/NuovoXL/weights/best.pt",
+        "imgsz": 800
+    }
 }
 
 dataset_yaml = "datasetAggiornato/data.yaml"
 results_list = []
 
-for name, path in model_paths.items():
-    print(f"/n--- Valutazione Modello: {name} ---")
+# Rilevamento hardware
+device = 0 if torch.cuda.is_available() else "cpu"
+if device == "cpu" and torch.backends.mps.is_available():
+    device = "mps"
+
+print(f"Utilizzo device: {device}")
+
+for name, cfg in model_configs.items():
+    if not os.path.exists(cfg["path"]):
+        print(f"\n[!] Attenzione: Pesi non trovati per {name} in {cfg['path']}")
+        continue
+        
+    folder_name = f"val_{name.replace(' ', '_').replace('(', '').replace(')', '')}"
+    print(f"\n>>> Valutazione Test Set: {name}")
     
-    model = YOLO(path)
+    model = YOLO(cfg["path"])
     
+    # Validazione sul Test Set
     metrics = model.val(
         data=dataset_yaml,
         split='test',   
-        confidence=0.2,     # per i prossimi test proviamo ad aumentare la confidenza
-        batch=1,            # Batch size 1 per massima precisione per immagine
-        imgsz=448,          # Coerente con il training
-        device=0,           # Utilizza la tua GPU locale
+        conf=0.2,
+        batch=1,
+        imgsz=cfg["imgsz"],
+        device=device,
         save_json=True,
-        verbose=False
+        verbose=False,
+        name=folder_name,
+        exist_ok=True
     )
     
     results_list.append({
         "Modello": name,
-        "mAP50": metrics.seg.map50,
-        "mAP50-95": metrics.seg.map,
-        "Precision": metrics.seg.mp,
-        "Recall": metrics.seg.mr,
+        "Box mAP50": metrics.box.map50,
+        "Box mAP50-95": metrics.box.map,
+        "Mask mAP50": metrics.seg.map50,
+        "Mask mAP50-95": metrics.seg.map,
+        "Precision (M)": metrics.seg.mp,
+        "Recall (M)": metrics.seg.mr,
     })
 
-# Creazione Tabella Comparativa
-df = pd.DataFrame(results_list)
-print("/n### Risultati Comparativi su Test Set ###")
-print(df.to_string(index=False))
-
-
-df = df.round(3)
-markdown_table = df.to_markdown(index=False)
-print(markdown_table)
-
-# Salvataggio in CSV per il tuo paper/report
-# df.to_csv("test_comparison_results.csv", index=False)
+# Output e salvataggio
+if results_list:
+    df = pd.DataFrame(results_list)
+    df = df.round(3)
+    
+    print("\n### RISULTATI TEST SET (GENERAZIONE V2 - 800px) ###")
+    print(df.to_string(index=False))
+    
+    print("\nTabella Markdown per il README:")
+    try:
+        print(df.to_markdown(index=False))
+    except ImportError:
+        print(df.to_string(index=False))
+    
+    df.to_csv("risultati_test_finali.csv", index=False)
+else:
+    print("Nessun modello valutato. Verifica i percorsi dei file .pt")
