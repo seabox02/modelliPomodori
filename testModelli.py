@@ -5,39 +5,36 @@ import os
 
 # Definiamo solo i modelli a 800px (Generazione V2) disponibili
 model_configs = {
-    "Small V2 (800px)": {
-        "path": "runs/segment/s26Finale/weights/best.pt",
+    "Small NewData (800px)": {
+        "path": "runs/segment/newData/s26Finale/weights/best.pt",
         "imgsz": 800
     },
-    "Medium (800px)": {
-        "path": "runs/segment/m26Finale/weights/best.pt",
+    "Medium NewData (800px)": {
+        "path": "runs/segment/newData/m26Finale/weights/best.pt",
         "imgsz": 800
     },
-    "Large V2 (800px)": {
-        "path": "runs/segment/Nuovol26/weights/best.pt",
+    "Large NewData (800px)": {
+        "path": "runs/segment/newData/Nuovol26/weights/best.pt",
         "imgsz": 800
     },
-    "ExtraLarge (800px)": {
-        "path": "runs/segment/NuovoXL/weights/best.pt",
-        "imgsz": 800
-    }
-}
-
-model_configs_oldDataset= {
-    "Small V2 (800px)": {
-        "path": "runs/segment/oldDataset/s26DataOld3/weights/best.pt",
+    "ExtraLarge NewData (800px)": {
+        "path": "runs/segment/newData/NuovoXL/weights/best.pt",
         "imgsz": 800
     },
-    "Medium (800px)": {
-        "path": "runs/segment/oldDataset/m26DataOld3/weights/best.pt",
+    "Small OldData (800px)": {
+        "path": "runs/segment/oldDataset/s26DataOld/weights/best.pt",
         "imgsz": 800
     },
-    "Large (800px)": {
-        "path": "runs/segment/oldDataset/l26DataOld3/weights/best.pt",
+    "Medium OldData (800px)": {
+        "path": "runs/segment/oldDataset/m26DataOld/weights/best.pt",
         "imgsz": 800
     },
-    "ExtraLarge (800px)": { #ok
-        "path": "runs/segment/oldDataset/xl26DataOld3/weights/best.pt",
+    "Large OldData (800px)": {
+        "path": "runs/segment/oldDataset/l26DataOld/weights/best.pt",
+        "imgsz": 800
+    },
+    "ExtraLarge OldData (800px)": { #ok
+        "path": "runs/segment/oldDataset/xl26DataOld/weights/best.pt",
         "imgsz": 800
     }
 }
@@ -52,7 +49,7 @@ if device == "cpu" and torch.backends.mps.is_available():
 
 print(f"Utilizzo device: {device}")
 
-for name, cfg in model_configs_oldDataset.items():
+for name, cfg in model_configs.items():
     if not os.path.exists(cfg["path"]):
         print(f"\n[!] Attenzione: Pesi non trovati per {name} in {cfg['path']}")
         continue
@@ -66,7 +63,7 @@ for name, cfg in model_configs_oldDataset.items():
     metrics = model.val(
         data=dataset_yaml,
         split='test',   
-        conf=0.2,
+        conf=0.7,
         batch=1,
         imgsz=cfg["imgsz"],
         device=device,
