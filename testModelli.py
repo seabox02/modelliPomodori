@@ -23,6 +23,25 @@ model_configs = {
     }
 }
 
+model_configs_oldDataset= {
+    "Small V2 (800px)": {
+        "path": "runs/segment/oldDataset/s26DataOld3/weights/best.pt",
+        "imgsz": 800
+    },
+    "Medium (800px)": {
+        "path": "runs/segment/oldDataset/m26DataOld3/weights/best.pt",
+        "imgsz": 800
+    },
+    "Large (800px)": {
+        "path": "runs/segment/oldDataset/l26DataOld3/weights/best.pt",
+        "imgsz": 800
+    },
+    "ExtraLarge (800px)": { #ok
+        "path": "runs/segment/oldDataset/xl26DataOld3/weights/best.pt",
+        "imgsz": 800
+    }
+}
+
 dataset_yaml = "datasetAggiornato/data.yaml"
 results_list = []
 
@@ -33,7 +52,7 @@ if device == "cpu" and torch.backends.mps.is_available():
 
 print(f"Utilizzo device: {device}")
 
-for name, cfg in model_configs.items():
+for name, cfg in model_configs_oldDataset.items():
     if not os.path.exists(cfg["path"]):
         print(f"\n[!] Attenzione: Pesi non trovati per {name} in {cfg['path']}")
         continue
@@ -81,6 +100,6 @@ if results_list:
     except ImportError:
         print(df.to_string(index=False))
     
-    df.to_csv("risultati_test_finali.csv", index=False)
+    #df.to_csv("risultati_test_finali.csv", index=False)
 else:
     print("Nessun modello valutato. Verifica i percorsi dei file .pt")

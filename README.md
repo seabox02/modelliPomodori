@@ -31,7 +31,7 @@ I modelli sono stati valutati su 200 epoche. Il confronto evidenzia come l'incre
 *Figura 2: Evoluzione della precisione media (mAP50-95) per le Maschere di Segmentazione.*
 
 ### Analisi Tecnica
-1. **L'impatto della Risoluzione (V1 vs V2)**: Il passaggio da 640 a 800 pixel è il fattore determinante. Il modello **Small V2** (800px) riesce a superare le prestazioni del **Large V1** (640px) pur avendo un numero di parametri significativamente inferiore, a dimostrazione che la densità di pixel è critica per la segmentazione in questo dominio.
+1. **L'impatto della Risoluzione (V1 vs V2)**: Il passaggio da x640 a 800 pixel è il fattore determinante. Il modello **Small V2** (800px) riesce a superare le prestazioni del **Large V1** (640px) pur avendo un numero di parametri significativamente inferiore, a dimostrazione che la densità di pixel è critica per la segmentazione in questo dominio.
 2. **Equilibrio Architetturale**: Il modello **Large V2 (800px)** rappresenta l'ottimo di Pareto: offre prestazioni superiori alla versione ExtraLarge (XL) con una complessità ridotta, confermando che l'architettura Large ha già la capacità necessaria per il dataset attuale.
 
 ### Analisi della Convergenza e Generalizzazione
