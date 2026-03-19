@@ -1,6 +1,6 @@
 ## Modelli Object Detection e Mask Segmentation su Dataset Pomodori (YOLO26)
 
-Questo progetto documenta lo sviluppo e l'addestramento di modelli di visione artificiale ottimizzati per il riconoscimento e la segmentazione di istanze di pomodori. Sono state impiegate architetture **YOLO26** di diverse scale per bilanciare latenza e precisione in contesti robotici.
+Questo progetto documenta lo sviluppo e l'addestramento di modelli di visione artificiale ottimizzati per il riconoscimento e la segmentazione di istanze di pomodori. Sono state impiegate architetture **YOLO** (YOLO11 e YOLO26) di diverse scale per bilanciare latenza e precisione in contesti robotici.
 
 ### Evoluzione della Sperimentazione
 Le fasi di addestramento sono state divise in due generazioni principali:
@@ -42,103 +42,67 @@ L'analisi delle curve evidenzia una robusta capacità di generalizzazione:
 ![Analisi Overfitting](analisi_overfitting_seg.png)
 *Figura 3: Analisi della convergenza tramite Validation Segmentation Loss.*
 
-### Validazione Finale su Test Set (Unbiased Evaluation) (confidence di 0.2)
-I modelli V2 (800px) sono stati valutati su un Test Set indipendente.
+### Validazione Finale su Test Set (Unbiased Evaluation) con una confidenza di 0.4:
 
-| Modello            |   Box mAP50 |   Box mAP50-95 |   Mask mAP50 |   Mask mAP50-95 |   Precision (M) |   Recall (M) |
-|:-------------------|------------:|---------------:|-------------:|----------------:|----------------:|-------------:|
-| Small V2 (800px)   |       0.764 |          0.491 |        0.697 |           0.369 |           0.743 |        0.625 |
-| Medium (800px)     |       0.793 |          0.522 |        0.739 |           0.388 |           0.729 |        0.688 |
-| Large V2 (800px)   |       0.796 |          0.531 |        0.737 |           0.395 |           0.726 |        0.671 |
-| **ExtraLarge (800px)** |       **0.812** |          **0.539** |        **0.753** |           **0.397** |           **0.758** |        **0.691** |
+I modelli sono stati valutati su un test set indipendente con confidenza fissata a 0.4, per una stima unbiased delle performance reale.
 
-### Validazione su Test Set nuovi modelli (Unbiased Evaluation)
-Nuovi modelli addestrati sul dataset originale e successivamente testati sul dataset di test aggiornato. 
-
-| Modello            |   Box mAP50 |   Box mAP50-95 |   Mask mAP50 |   Mask mAP50-95 |   Precision (M) |   Recall (M) |
-|:-------------------|------------:|---------------:|-------------:|----------------:|----------------:|-------------:|
-| Small (800px)      |       0.768 |          0.5   |        0.711 |           0.38  |           0.671 |        0.687 |
-| Medium (800px)     |       0.771 |          0.519 |        0.718 |           0.395 |           0.713 |        0.652 |
-| Large (800px)      |       0.799 |          0.535 |        0.737 |           0.396 |           0.712 |        0.698 |
-| ExtraLarge (800px) |       0.796 |          0.539 |        0.722 |           0.399 |           0.731 |        0.683 |
-
-Validazione effettuata con una confidenza di 0.2 per tutti i modelli. 
-Il modello xl addestrato sul dataset aggiornato risulta essere comunque più efficiente degli altri sullo stesso dataset di test.
-
-
-### Validazione su tutti i modelli, effettuata con una confidenza di 0.3:
-| Modello                    |   Box mAP50 |   Box mAP50-95 |   Mask mAP50 |   Mask mAP50-95 |   Precision (M) |   Recall (M) |
-|:---------------------------|------------:|---------------:|-------------:|----------------:|----------------:|-------------:|
-| Small NewData (800px)      |       0.76  |          0.496 |        0.696 |           0.377 |           0.736 |        0.629 |
-| Medium NewData (800px)     |       0.787 |          0.524 |        0.734 |           0.395 |           0.736 |        0.682 |
-| Large NewData (800px)      |       0.786 |          0.532 |        0.731 |           0.404 |           0.734 |        0.668 |
-| ExtraLarge NewData (800px) |       0.804 |          0.539 |        0.747 |           0.405 |           0.758 |        0.691 |
-| Small OldData (800px)      |       0.752 |          0.499 |        0.7   |           0.382 |           0.734 |        0.624 |
-| Medium OldData (800px)     |       0.766 |          0.52  |        0.716 |           0.399 |           0.731 |        0.645 |
-| Large OldData (800px)      |       0.79  |          0.534 |        0.73  |           0.398 |           0.733 |        0.678 |
-| ExtraLarge OldData (800px) |       0.792 |          0.542 |        0.722 |           0.403 |           0.73  |        0.685 |
-
-
-### Validazione su tutti i modelli, effettuata con una confidenza di 0.4:
 | Modello                    |   Box mAP50 |   Box mAP50-95 |   Mask mAP50 |   Mask mAP50-95 |   Precision (M) |   Recall (M) |
 |:---------------------------|------------:|---------------:|-------------:|----------------:|----------------:|-------------:|
 | Small NewData (800px)      |       0.74  |          0.493 |        0.682 |           0.379 |           0.786 |        0.567 |
 | Medium NewData (800px)     |       0.77  |          0.521 |        0.722 |           0.397 |           0.787 |        0.626 |
 | Large NewData (800px)      |       0.778 |          0.532 |        0.724 |           0.407 |           0.78  |        0.628 |
-| ExtraLarge NewData (800px) |       0.796 |          0.541 |        0.743 |           0.408 |           0.778 |        0.674 |
+| **ExtraLarge NewData (800px)** |       **0.796** |          **0.541** |        **0.743** |           0.408 |           0.778 |        0.674 |
 | Small OldData (800px)      |       0.746 |          0.499 |        0.697 |           0.386 |           0.787 |        0.587 |
 | Medium OldData (800px)     |       0.751 |          0.515 |        0.705 |           0.398 |           0.768 |        0.595 |
 | Large OldData (800px)      |       0.775 |          0.533 |        0.719 |           0.399 |           0.787 |        0.621 |
 | ExtraLarge OldData (800px) |       0.779 |          0.54  |        0.713 |           0.403 |           0.761 |        0.648 |
+| ExtraLarge 11 (800px)      |       0.803 |          0.576 |        0.738 |           0.411 |            0.76 |        0.688 |
+| Medium 11  (640px)   | 0.7957 |         0.5615 |       0.7167 |          0.4014 |      0.7226 |   0.6567 |
+| **Large 11 (640px)** |      **0.8068** |         **0.5719** |       **0.732**  |          **0.4123** |      **0.75**   |   **0.6813** |
+| ExtraLarge 11 (640px)|      0.8028 |         0.5756 |       0.7405 |          0.429  |      0.7594 |   0.6896 |
 
-### Validazione su tutti i modelli, effettuata con una confidenza di 0.5:
-| Modello                    |   Box mAP50 |   Box mAP50-95 |   Mask mAP50 |   Mask mAP50-95 |   Precision (M) |   Recall (M) |
-|:---------------------------|------------:|---------------:|-------------:|----------------:|----------------:|-------------:|
-| Small NewData (800px)      |       0.716 |          0.484 |        0.66  |           0.377 |           0.812 |        0.496 |
-| Medium NewData (800px)     |       0.752 |          0.515 |        0.706 |           0.393 |           0.811 |        0.574 |
-| Large NewData (800px)      |       0.761 |          0.527 |        0.714 |           0.409 |           0.836 |        0.576 |
-| ExtraLarge NewData (800px) |       0.781 |          0.539 |        0.729 |           0.408 |           0.822 |        0.619 |
-| Small OldData (800px)      |       0.722 |          0.495 |        0.675 |           0.387 |           0.837 |        0.508 |
-| Medium OldData (800px)     |       0.741 |          0.516 |        0.696 |           0.399 |           0.814 |        0.549 |
-| Large OldData (800px)      |       0.761 |          0.531 |        0.706 |           0.399 |           0.823 |        0.572 |
-| ExtraLarge OldData (800px) |       0.757 |          0.531 |        0.694 |           0.4   |           0.805 |        0.581 |
+In [risultati](risultati.csv) troviamo tutti i valori ottenuti su vari livelli di confidence (da 0.2 a 0.7).
 
-### Validazione su tutti i modelli, effettuata con una confidenza di 0.7:
-Tabella Markdown per il README:
-| Modello                    |   Box mAP50 |   Box mAP50-95 |   Mask mAP50 |   Mask mAP50-95 |   Precision (M) |   Recall (M) |
-|:---------------------------|------------:|---------------:|-------------:|----------------:|----------------:|-------------:|
-| Small NewData (800px)      |       0.661 |          0.471 |        0.625 |           0.377 |           0.888 |        0.357 |
-| Medium NewData (800px)     |       0.706 |          0.503 |        0.667 |           0.389 |           0.885 |        0.442 |
-| Large NewData (800px)      |       0.707 |          0.508 |        0.667 |           0.4   |           0.886 |        0.435 |
-| ExtraLarge NewData (800px) |       0.71  |          0.514 |        0.671 |           0.397 |           0.892 |        0.444 |
-| Small OldData (800px)      |       0.66  |          0.474 |        0.62  |           0.378 |           0.882 |        0.351 |
-| Medium OldData (800px)     |       0.688 |          0.496 |        0.655 |           0.392 |           0.881 |        0.414 |
-| Large OldData (800px)      |       0.697 |          0.506 |        0.653 |           0.387 |           0.874 |        0.417 |
-| ExtraLarge OldData (800px) |       0.701 |          0.512 |        0.646 |           0.396 |           0.859 |        0.43  |
+Nonostante YOLO26 sia l'architettura più recente e teoricamente più performante, il modello **Large di YOLO11** ottiene performance molto simili, e migliori su alcune metriche, rispetto all'ExtraLarge di YOLO26.
 
-Si può notare subito che aumentando la confidence, per tutti i modelli risulta che l'mAP e la recall diminuiscono mentre la precision aumenta. 
-Notiamo anche che con una confidence abbastanza alta (0.7) non c'è più una grande differenza tra i valori ottenuti tra i vari modelli, l'xl sul dataset nuovo è ancora il migliore,
-ma risulta migliore solo di qualche centesimo rispetto agli altri (large e medium), mentre con una confidence più bassa c'era una differenza di qualche decimo. 
+![mAP50-95](compare1.png) ![precision](compare2.png) ![recall](compare3.png)
 
-Si nota come tutti i modelli mantengano prestazioni elevate su dati mai visti, con il modello **ExtraLarge** che supera la soglia dell'**81% di mAP50 per le Bounding Box** e il **75% per le Segmentation Mask**. La stabilità delle metriche tra i diversi modelli suggerisce che la risoluzione a 800px sia il fattore abilitante per un riconoscimento affidabile in questo dominio.
+I grafici evidenziano tre aspetti principali:
+- **mAP50-95**: i due modelli sono sostanzialmente equivalenti su tutti i valori di confidence; 
+- **Precision**: YOLO26-XL raggiunge una precisione più elevata ad alta confidence, vicina al 90%, mentre YOLO11-L è più contenuto, ma non c'è una differenza così netta;
+- **Recall**: YOLO11-L mantiene una recall significativamente più stabile all'aumentare della confidence, mentre YOLO26-XL diminuisce drasticamente.
 
-### Analisi dell'Efficienza e Costo Computazionale
+La stabilità delle metriche al variare della confidence è un punto di forza per applicazioni reali: consente di adattare la soglia in base al caso d'uso — ad esempio privilegiare la recall per raccogliere il maggior numero di pomodori, o la precision per evitare falsi positivi in raccolta automatizzata.
+
+### Analisi dell'Efficienza e Costo Computazionale mAP50-95 (Mask)
 | Modello | Peso (MB) | Tempo Training | mAP50-95 (Mask) | Efficienza |
 | :--- | :--- | :--- | :--- | :--- |
-| **Small V1** | 22 MB | 1h 40m | 0.299 | Baseline Small |
-| **Small V2** | 22 MB | 1h 51m | 0.346 | **Alta Efficienza** |
-| **Medium** | 52 MB | 2h 50m | 0.367 | Ottimo bilanciamento |
-| **Large V1** | 61 MB | 2h 33m | 0.344 | Superato dai modelli V2 |
-| **Large V2** | 61 MB | 3h 17m | **0.373** | **Best Performance** |
-| **ExtraLarge** | 135 MB | 5h 25m | 0.370 | Inefficiente |
+| **YOLO26-S NewData** | 23.4 MB | ~1h 50m | 0.379 | Alta Efficienza |
+| **YOLO11-M OldData** | 45.2 MB | ~2h 10m | 0.401 | Ottimo bilanciamento |
+| **YOLO11-L OldData** | 55.8 MB | ~2h 40m | 0.412 |  **Best Performance** |
+| **YOLO26-M NewData** | 54.5 MB | ~2h 50m | 0.397 | Buona efficienza |
+| **YOLO26-L NewData** | 63.5 MB | ~3h 20m | 0.407 | Superato da YOLO11-L |
+| **YOLO11-XL OldData** | 124.8 MB | ~4h 30m | **0.429** | Inefficiente |
+| **YOLO26-XL NewData** | 141.8 MB | ~5h 30m | 0.408 | Inefficiente |
 
-![Pareto Frontier](pareto_efficiency.png)
+![pareto_mAp50-95](pareto_mAP50-95.png)
+
 *Figura 4: Analisi di efficienza. La dimensione della bolla rappresenta il peso del modello in MB.*
 
+### Analisi dell'Efficienza e Costo Computazionale mAP50 (Mask)
+| Modello | Peso (MB) | Tempo Training | mAP50 (Mask) | Efficienza |
+| :--- | :--- | :--- | :--- | :--- |
+| **YOLO26-S NewData** | 23.4 MB | 1h 50m | 0.682 | Alta Efficienza |
+| **YOLO11-M OldData** | 45.2 MB | 2h 10m | 0.717 | Buona Efficienza |
+| **YOLO11-L OldData** | 55.8 MB | 2h 40m | 0.732 | **Best Performance** |
+| **YOLO26-M NewData** | 54.5 MB | 2h 50m | 0.722 | Ottimo bilanciamento |
+| **YOLO26-L NewData** | 63.5 MB | 3h 20m | 0.724 |  Superato da YOLO11-L |
+| **YOLO11-XL OldData** | 124.8 MB | 4h 30m | 0.741 | Inefficiente |
+| **YOLO26-XL NewData** | 141.8 MB | 5h 30m | **0.743** | **Inefficiente** |
 
+![pareto_mAP50](pareto_mAP50.png)
 
-
-
+In entrambe le metriche emerge lo stesso risultato: i modelli ExtraLarge sono i migliori a livello di precisione assoluta, YOLO11-XL per mAP50-95 e YOLO26-XL per mAP50, ma entrambi risultano inefficienti in termini di peso e tempo di training. Il miglior compromesso è **YOLO11-L**, che con un tempo di addestramento contenuto (~2h 40m) e un peso di 55.8 MB raggiunge performance elevate su entrambe le metriche.
 
 ### Glossario delle Metriche
 - **mAP50-95**: Metrica rigorosa che valuta la precisione millimetrica dei contorni.

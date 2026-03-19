@@ -4,12 +4,11 @@
 *.onnx
 *.engine
 *.weights
+*.ipynb
 
 
 README.dataset.txt
 README.roboflow.txt
-
-
 
 venv/
 env/
@@ -31,7 +30,6 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
-
 
 risultati_test_finali.csv
 GEMINI.md

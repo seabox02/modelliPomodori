@@ -3,100 +3,98 @@ from ultralytics import YOLO
 import torch
 import os
 
-# Definiamo solo i modelli a 800px (Generazione V2) disponibili
+# Configurazione modelli (V2 - 800px)
+# Aggiungi qui tutti i modelli che desideri testare
 model_configs = {
-    "Small NewData (800px)": {
-        "path": "runs/segment/newData/s26Finale/weights/best.pt",
-        "imgsz": 800
+    "Large 11": {
+        "path": "runs/segment11/modello11_large_100/weights/best.pt",
+        "imgsz": 800,
+        "dataset_tag": "NewData"
     },
-    "Medium NewData (800px)": {
-        "path": "runs/segment/newData/m26Finale/weights/best.pt",
-        "imgsz": 800
+    "ExtraLarge 11": {
+        "path": "runs/segment11/modello11_extralarge_150/weights/best.pt",
+        "imgsz": 800,
+        "dataset_tag": "NewData"
     },
-    "Large NewData (800px)": {
-        "path": "runs/segment/newData/Nuovol26/weights/best.pt",
-        "imgsz": 800
-    },
-    "ExtraLarge NewData (800px)": {
-        "path": "runs/segment/newData/NuovoXL/weights/best.pt",
-        "imgsz": 800
-    },
-    "Small OldData (800px)": {
-        "path": "runs/segment/oldDataset/s26DataOld/weights/best.pt",
-        "imgsz": 800
-    },
-    "Medium OldData (800px)": {
-        "path": "runs/segment/oldDataset/m26DataOld/weights/best.pt",
-        "imgsz": 800
-    },
-    "Large OldData (800px)": {
-        "path": "runs/segment/oldDataset/l26DataOld/weights/best.pt",
-        "imgsz": 800
-    },
-    "ExtraLarge OldData (800px)": { #ok
-        "path": "runs/segment/oldDataset/xl26DataOld/weights/best.pt",
-        "imgsz": 800
+    "Medium 11": {
+        "path": "runs/segment11/modello11_medium_100/weights/best.pt",
+        "imgsz": 800,
+        "dataset_tag": "NewData"
     }
 }
 
 dataset_yaml = "datasetAggiornato/data.yaml"
+conf_values = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7] # Intervallo di confidenza richiesto
 results_list = []
 
-# Rilevamento hardware
+# Rilevamento hardware ottimizzato
 device = 0 if torch.cuda.is_available() else "cpu"
 if device == "cpu" and torch.backends.mps.is_available():
     device = "mps"
 
-print(f"Utilizzo device: {device}")
+print(f"Device operativo: {device}")
 
 for name, cfg in model_configs.items():
     if not os.path.exists(cfg["path"]):
-        print(f"\n[!] Attenzione: Pesi non trovati per {name} in {cfg['path']}")
+        print(f"\n[!] Errore: Pesi non trovati per {name} in {cfg['path']}")
         continue
-        
-    folder_name = f"val_{name.replace(' ', '_').replace('(', '').replace(')', '')}"
-    print(f"\n>>> Valutazione Test Set: {name}")
     
+    # Carichiamo il modello una sola volta per tutte le confidenze (efficienza VRAM)
     model = YOLO(cfg["path"])
     
-    # Validazione sul Test Set
-    metrics = model.val(
-        data=dataset_yaml,
-        split='test',   
-        conf=0.7,
-        batch=1,
-        imgsz=cfg["imgsz"],
-        device=device,
-        save_json=True,
-        verbose=False,
-        name=folder_name,
-        exist_ok=True
-    )
-    
-    results_list.append({
-        "Modello": name,
-        "Box mAP50": metrics.box.map50,
-        "Box mAP50-95": metrics.box.map,
-        "Mask mAP50": metrics.seg.map50,
-        "Mask mAP50-95": metrics.seg.map,
-        "Precision (M)": metrics.seg.mp,
-        "Recall (M)": metrics.seg.mr,
-    })
+    for conf_thresh in conf_values:
+        print(f"\n>>> Valutazione: {name} | Confidenza: {conf_thresh}")
+        
+        # Esecuzione validazione
+        # verbose=False riduce il rumore nei log durante le iterazioni
+        metrics = model.val(
+            data=dataset_yaml,
+            split='test',   
+            conf=conf_thresh,
+            batch=1,
+            imgsz=cfg["imgsz"],
+            device=device,
+            save_json=False,
+            verbose=False,
+            plots=False # Disattivato per velocizzare l'iterazione
+        )
+        
+        # Estrazione metriche e append alla lista
+        results_list.append({
+            "Model": name,
+            "Dataset": cfg.get("dataset_tag", "N/A"),
+            "Box_mAP50": metrics.box.map50,
+            "Box_mAP50-95": metrics.box.map,
+            "Mask_mAP50": metrics.seg.map50,
+            "Mask_mAP50-95": metrics.seg.map,
+            "Precision": metrics.seg.mp,
+            "Recall": metrics.seg.mr,
+            "Conf": conf_thresh
+        })
 
-# Output e salvataggio
+# Elaborazione finale dei dati
 if results_list:
     df = pd.DataFrame(results_list)
-    df = df.round(3)
+    df = df.round(4) # Maggiore precisione per analisi scientifica
     
-    print("\n### RISULTATI TEST SET (GENERAZIONE V2 - 800px) ###")
+    print("\n" + "="*50)
+    print("### REPORT FINALE DI VALIDAZIONE MULTI-CONFIDENZA ###")
+    print("="*50)
+    
+    # Visualizzazione Tabellare
+    print("\nVisualizzazione DataFrame:")
     print(df.to_string(index=False))
     
-    print("\nTabella Markdown per il README:")
-    try:
-        print(df.to_markdown(index=False))
-    except ImportError:
-        print(df.to_string(index=False))
+    # Formato CSV per copia-incolla o salvataggio
+    print("\nFORMATO CSV (Pronto per .csv):")
+    print(df.to_csv(index=False))
     
-    #df.to_csv("risultati_test_finali.csv", index=False)
+    # Formato Markdown per il tuo README
+    print("\nTABELLA MARKDOWN PER README:")
+    print(df.to_markdown(index=False))
+    
+    # Salvataggio automatico su file
+    #df.to_csv("risultati_sensibilita_confidence.csv", index=False)
+    #print(f"\n[INFO] Risultati salvati correttamente in 'risultati_sensibilita_confidence.csv'")
 else:
-    print("Nessun modello valutato. Verifica i percorsi dei file .pt")
+    print("Errore: Nessun dato raccolto. Controllare i percorsi dei modelli.")
