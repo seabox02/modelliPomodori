@@ -104,6 +104,21 @@ La stabilità delle metriche al variare della confidence è un punto di forza pe
 
 In entrambe le metriche emerge lo stesso risultato: i modelli ExtraLarge sono i migliori a livello di precisione assoluta, YOLO11-XL per mAP50-95 e YOLO26-XL per mAP50, ma entrambi risultano inefficienti in termini di peso e tempo di training. Il miglior compromesso è **YOLO11-L**, che con un tempo di addestramento contenuto (~2h 40m) e un peso di 55.8 MB raggiunge performance elevate su entrambe le metriche.
 
+### Algoritmo di Reachability e Ranking (reachability_ranking.py)
+Per tradurre le rilevazioni di YOLO in decisioni azionabili per un sistema robotico, è stato implementato un modulo di **Reachability Analysis** basato sulla geometria delle maschere di segmentazione.
+
+#### Logica di Funzionamento
+L'algoritmo elabora i risultati dell'inferenza (frame 448x448) seguendo questi step:
+1. **Estrazione Maschere**: Recupera le maschere binarie per la classe `tomato` e le normalizza alla risoluzione nativa del frame.
+2. **Calcolo Area e Centroide**: Determina l'area reale in pixel (somma dei pixel attivi) e il centro geometrico di ogni istanza. L'area viene utilizzata come *proxy* della distanza e dell'occlusione.
+3. **Ranking Dinamico**: Ordina tutti i pomodori rilevati in base all'area decrescente e seleziona i **Top 3** candidati. Questo riduce il carico computazionale per la pianificazione delle traiettorie del robot, focalizzandosi solo sui target più promettenti.
+4. **Criterio di Raggiungibilità**:
+   - **Target Valido (Verde)**: Area > 2000 pixel. Indica un pomodoro sufficientemente grande/vicino per un tentativo di presa sicuro.
+   - **Target Lontano/Piccolo (Rosso)**: Area < 2000 pixel. Il sistema identifica il frutto ma lo segnala come non prioritario o fuori portata ottimale.
+
+#### Utilità Robotica
+Questa euristica fornisce una **baseline solida** per il filtraggio dei target prima dell'invio delle coordinate al controller del braccio robotico, garantendo che il sistema interagisca solo con oggetti che presentano un segnale visivo robusto e una dimensione apparente compatibile con le specifiche operative del gripper.
+
 ### Glossario delle Metriche
 - **mAP50-95**: Metrica rigorosa che valuta la precisione millimetrica dei contorni.
 - **Precision/Recall**: Capacità di evitare falsi positivi e individuare tutti gli oggetti.
