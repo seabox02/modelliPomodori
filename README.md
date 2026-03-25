@@ -24,10 +24,10 @@ I modelli sono stati valutati su 200 epoche. Il confronto evidenzia come l'incre
 *(B) = Bounding Box, (M) = Segmentation Mask. Valutazioni eseguite con confidenza 0.20.*
 
 #### Evoluzione delle Metriche (mAP@.50:.95)
-![Confronto Bounding Box](grafici/confronto_bbox_95.png)
+![Confronto Bounding Box](Grafici/confronto_bbox_95.png)
 *Figura 1: Evoluzione della precisione media (mAP50-95) per le Bounding Box.*
 
-![Confronto Segmentation Mask](grafici/confronto_mask_95.png)
+![Confronto Segmentation Mask](Grafici/confronto_mask_95.png)
 *Figura 2: Evoluzione della precisione media (mAP50-95) per le Maschere di Segmentazione.*
 
 ### Analisi Tecnica
@@ -39,7 +39,7 @@ L'analisi delle curve evidenzia una robusta capacità di generalizzazione:
 - **Assenza di Overfitting**: La stabilità della loss di validazione conferma che i modelli non hanno "memorizzato" il training set.
 - **Ottimizzazione**: L'impiego del Cosine Annealing ha stabilizzato la precisione finale al valore massimo (0.373 mAP50-95 per le maschere nel modello Large V2).
 
-![Analisi Overfitting](grafici/analisi_overfitting_seg.png)
+![Analisi Overfitting](Grafici/analisi_overfitting_seg.png)
 *Figura 3: Analisi della convergenza tramite Validation Segmentation Loss.*
 
 ### Validazione Finale su Test Set (Unbiased Evaluation) con una confidenza di 0.4:
@@ -61,11 +61,11 @@ I modelli sono stati valutati su un test set indipendente con confidenza fissata
 | **Large 11 (640px)** |      **0.8068** |         **0.5719** |       **0.732**  |          **0.4123** |      **0.75**   |   **0.6813** |
 | ExtraLarge 11 (640px)|      0.8028 |         0.5756 |       0.7405 |          0.429  |      0.7594 |   0.6896 |
 
-In [risultati](grafici/risultati.csv) troviamo tutti i valori ottenuti su vari livelli di confidence (da 0.2 a 0.7).
+In [risultati](Grafici/risultati.csv) troviamo tutti i valori ottenuti su vari livelli di confidence (da 0.2 a 0.7).
 
 Nonostante YOLO26 sia l'architettura più recente e teoricamente più performante, il modello **Large di YOLO11** ottiene performance molto simili, e migliori su alcune metriche, rispetto all'ExtraLarge di YOLO26.
 
-![mAP50-95](grafici/compare1.png) ![precision](grafici/compare2.png) ![recall](grafici/compare3.png)
+![mAP50-95](Grafici/compare1.png) ![precision](Grafici/compare2.png) ![recall](Grafici/compare3.png)
 
 I grafici evidenziano tre aspetti principali:
 - **mAP50-95**: i due modelli sono sostanzialmente equivalenti su tutti i valori di confidence; 
@@ -85,7 +85,7 @@ La stabilità delle metriche al variare della confidence è un punto di forza pe
 | **YOLO11-XL OldData** | 124.8 MB | ~4h 30m | **0.429** | Inefficiente |
 | **YOLO26-XL NewData** | 141.8 MB | ~5h 30m | 0.408 | Inefficiente |
 
-![pareto_mAp50-95](grafici/pareto_mAP50-95.png)
+![pareto_mAp50-95](Grafici/pareto_mAP50-95.png)
 
 *Figura 4: Analisi di efficienza. La dimensione della bolla rappresenta il peso del modello in MB.*
 
@@ -100,7 +100,7 @@ La stabilità delle metriche al variare della confidence è un punto di forza pe
 | **YOLO11-XL OldData** | 124.8 MB | 4h 30m | 0.741 | Inefficiente |
 | **YOLO26-XL NewData** | 141.8 MB | 5h 30m | **0.743** | **Inefficiente** |
 
-![pareto_mAP50](grafici/pareto_mAP50.png)
+![pareto_mAP50](Grafici/pareto_mAP50.png)
 
 In entrambe le metriche emerge lo stesso risultato: i modelli ExtraLarge sono i migliori a livello di precisione assoluta, YOLO11-XL per mAP50-95 e YOLO26-XL per mAP50, ma entrambi risultano inefficienti in termini di peso e tempo di training. Il miglior compromesso è **YOLO11-L**, che con un tempo di addestramento contenuto (~2h 40m) e un peso di 55.8 MB raggiunge performance elevate su entrambe le metriche.
 
