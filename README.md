@@ -140,6 +140,13 @@ Per risolvere i casi critici in cui target sferici e centrali venivano prioritiz
 
 **Risultato**: Il sistema garantisce che il **Rank 1** sia sempre assegnato al frutto più grande, visibile e "libero" da ingombri frontali, ottimizzando drasticamente la qualità dei dati per la successiva fase di scansione 3D.
 
+#### Dettagli dell'Implementazione: Elaborazione Dati YOLO
+Per massimizzare sia la precisione metrica che l'efficienza computazionale richiesta in ambito robotico, l'algoritmo sfrutta in modo differenziato gli output di YOLO:
+
+-   **Analisi basata sulla Maschera (Pixel-wise)**: L'**Area** e la **Circolarità** sono calcolate esclusivamente sulla maschera di segmentazione binaria. A differenza del bounding box, la maschera esclude i pixel di sfondo negli angoli del rettangolo, fornendo la reale dimensione apparente del frutto. Questo approccio è fondamentale per rilevare le occlusioni (es. una forma a mezzaluna avrà un rapporto area/perimetro drasticamente diverso da un cerchio completo).
+-   **Analisi basata sul Bounding Box (Box-wise)**: Il calcolo delle **Intersezioni (IoU)** tra target limitrofi viene eseguito utilizzando i bounding box ($xyxy$). Questa scelta rappresenta un compromesso ingegneristico standard: il calcolo della sovrapposizione tra rettangoli è estremamente veloce, permettendo al sistema di gestire decine di istanze in tempo reale senza saturare la CPU del robot, pur mantenendo un'accuratezza sufficiente per la penalizzazione delle occlusioni.
+-   **Centroide Geometrico**: Il punto di mira (puntino bianco) è calcolato come baricentro dei pixel della maschera, garantendo che il robot punti sempre al centro della massa visibile del pomodoro.
+
 ### Glossario delle Metriche
 - **mAP50-95**: Metrica rigorosa che valuta la precisione millimetrica dei contorni.
 - **Precision/Recall**: Capacità di evitare falsi positivi e individuare tutti gli oggetti.
