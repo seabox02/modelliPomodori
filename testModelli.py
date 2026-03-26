@@ -6,24 +6,14 @@ import os
 # Configurazione modelli (V2 - 800px)
 # Aggiungi qui tutti i modelli che desideri testare
 model_configs = {
-    "Large 11": {
-        "path": "runs/segment11/modello11_large_100/weights/best.pt",
-        "imgsz": 800,
-        "dataset_tag": "NewData"
-    },
-    "ExtraLarge 11": {
-        "path": "runs/segment11/modello11_extralarge_150/weights/best.pt",
-        "imgsz": 800,
-        "dataset_tag": "NewData"
-    },
-    "Medium 11": {
-        "path": "runs/segment11/modello11_medium_100/weights/best.pt",
+    "ExtraLarge 26": {
+        "path": "runs/segment/oldDatasetTrain/large11DataOld-BEST/weights/best.pt",
         "imgsz": 800,
         "dataset_tag": "NewData"
     }
 }
 
-dataset_yaml = "datasetAggiornato/data.yaml"
+dataset_yaml = "nuovoDatasetTest/data.yaml"
 conf_values = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7] # Intervallo di confidenza richiesto
 results_list = []
 

@@ -6,7 +6,7 @@ import os
 import math
 
 # Configurazione per YOLO11-Large (quello identificato come Best)
-MODEL_PATH = "runs/segment/NuovoXL/weights/best.pt" # Usiamo l'XL o l'11L come discusso
+MODEL_PATH = "runs/segment/newDatasetTrain/extralarge26Best/weights/best.pt" # Usiamo l'XL o l'11L come discusso
 IMAGE_DIR = "datasetAggiornato/test/images"
 TARGET_CLASS = 3  # Tomato
 OUTPUT_DIR = "visualizzazione_raggiungibilita"
