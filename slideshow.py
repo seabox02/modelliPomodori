@@ -1,9 +1,11 @@
 from ultralytics import YOLO
 import cv2
 import os
+#   41 47
+MODE = "detection"
 
-folder_path = 'datasetTest/test' 
-model = YOLO('runs/segment/modello_extralarge_150/weights/best.pt') # per visualizzare un altro modello modificare la directory con quella del modello voluto
+folder_path = 'nuovoDatasetTest/test/images' 
+model = YOLO('runs/segment/oldDatasetTrain/large11DataOld-BEST/weights/best.pt') # per visualizzare un altro modello modificare la directory con quella del modello voluto
 
 
 images = [f for f in os.listdir(folder_path) if f.endswith('.jpg') or f.endswith('.jpeg')]
@@ -33,7 +35,12 @@ while True:
 
     results = model.predict(frame_resized, conf=0.40, verbose=False)
 
-    annotated_frame = results[0].plot()
+    if MODE == "detection":
+        annotated_frame = results[0].plot(masks=False, boxes=True)
+    elif MODE == "segmentation":
+        annotated_frame = results[0].plot(masks=True, boxes=False)
+    else:
+        raise ValueError(f"MODE non valido: '{MODE}'. Usa 'detection' o 'segmentation'.")
 
     cv2.putText(annotated_frame, f"Img: {current_index+1}/{len(images)} - {img_name}", 
                 (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)

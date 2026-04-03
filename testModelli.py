@@ -6,8 +6,8 @@ import os
 # Configurazione modelli (V2 - 800px)
 # Aggiungi qui tutti i modelli che desideri testare
 model_configs = {
-    "ExtraLarge 26": {
-        "path": "runs/segment/oldDatasetTrain/large11DataOld-BEST/weights/best.pt",
+    "Large 11": {
+        "path": "yolo11NewData6/weights/best.pt",
         "imgsz": 800,
         "dataset_tag": "NewData"
     }
@@ -40,6 +40,7 @@ for name, cfg in model_configs.items():
         metrics = model.val(
             data=dataset_yaml,
             split='test',   
+            task='detect',
             conf=conf_thresh,
             batch=1,
             imgsz=cfg["imgsz"],
@@ -55,10 +56,8 @@ for name, cfg in model_configs.items():
             "Dataset": cfg.get("dataset_tag", "N/A"),
             "Box_mAP50": metrics.box.map50,
             "Box_mAP50-95": metrics.box.map,
-            "Mask_mAP50": metrics.seg.map50,
-            "Mask_mAP50-95": metrics.seg.map,
-            "Precision": metrics.seg.mp,
-            "Recall": metrics.seg.mr,
+            "Precision": metrics.box.mp,
+            "Recall": metrics.box.mr,
             "Conf": conf_thresh
         })
 
