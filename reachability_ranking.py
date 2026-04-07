@@ -7,14 +7,15 @@ Output: immagine con maschere colorate solo sui top 3 target.
 """
 
 import cv2
+import json
 import numpy as np
 import math
 import os
 from ultralytics import YOLO
 
 # ── Configurazione ──────────────────────────────────────────────────
-MODEL_PATH   = "runs/segment/oldDatasetTrain/large11DataOld-BEST/weights/best.pt"
-IMAGE_DIR    = "datasetAggiornato/test/images"
+MODEL_PATH   = "runs/yolo11NewData6/weights/best.pt"
+IMAGE_DIR    = "immaginiPerAlgoritmo"
 OUTPUT_DIR   = "output_reachability"
 TARGET_CLASS = 3          # la classe tomato
 CONF         = 0.3        # soglia di confidenza scelta
@@ -198,6 +199,8 @@ def process_folder(model_path=MODEL_PATH, image_dir=IMAGE_DIR, output_dir=OUTPUT
 
     print(f"Elaborazione di {len(images)} immagini...")
 
+    algo_results = {}
+
     for img_name in images:
         img_path = os.path.join(image_dir, img_name)
         results = model.predict(img_path, conf=CONF, imgsz=IMGSZ, verbose=False)[0]
@@ -226,6 +229,13 @@ def process_folder(model_path=MODEL_PATH, image_dir=IMAGE_DIR, output_dir=OUTPUT
         # fase 2: selezione con filtro maturità
         top = select_targets(candidates, img)
 
+        algo_results[img_name] = {
+            "targets": [
+                {"x": det["centroid"][0], "y": det["centroid"][1], "rank": rank}
+                for rank, det in enumerate(top, 1)
+            ]
+        }
+
         # visualizzazione
         output = img.copy()
         for rank, det in enumerate(top, 1):
@@ -239,6 +249,9 @@ def process_folder(model_path=MODEL_PATH, image_dir=IMAGE_DIR, output_dir=OUTPUT
         cv2.imwrite(save_path, output)
 
     print(f"Completato. Risultati salvati in: {output_dir}/")
+    with open(os.path.join(output_dir, "algorithm_results.json"), "w") as f:
+        json.dump(algo_results, f, indent=2)
+    print(f"JSON salvato in: {output_dir}/algorithm_results.json")
 
 
 if __name__ == "__main__":

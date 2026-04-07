@@ -1,0 +1,771 @@
+{
+  "config": {
+    "tolerance_px": 60,
+    "total_images": 50,
+    "skipped_images": 11,
+    "evaluated_images": 38
+  },
+  "metrics": {
+    "concordance_rate": 0.7907,
+    "exact_order_rate": 0.4737,
+    "mean_match_distance_px": 8.16,
+    "total_matches": 68,
+    "total_human_targets": 86
+  },
+  "per_rank": {
+    "rank_1": {
+      "correct": 27,
+      "total": 37,
+      "accuracy": 0.7297
+    },
+    "rank_2": {
+      "correct": 9,
+      "total": 22,
+      "accuracy": 0.4091
+    },
+    "rank_3": {
+      "correct": 3,
+      "total": 9,
+      "accuracy": 0.3333
+    }
+  },
+  "per_image": {
+    "1650628871223393201_color_jpeg.rf.136df48488f965f302977abc91194f19.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        14.317821063276353
+      ]
+    },
+    "1690473807631993293_color_jpeg.rf.a8ef6c3914de85fbd4ebce21ebc80c7a.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        6.082762530298219
+      ]
+    },
+    "1690474031231779098_color_jpeg.rf.8cd76526dbf63576eadef77c74f7dbce.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        5.830951894845301
+      ]
+    },
+    "1690474092232180118_color_jpeg.rf.90e84ca3b38f8a51d466333c9c5a6526.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        7.211102550927978
+      ]
+    },
+    "1690474210231598854_color_jpeg.rf.6586297b9660c6efa075df636d0db9d6.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        4.123105625617661
+      ]
+    },
+    "1690549014333559036_color_jpeg.rf.756f1e46f9d17ca0a6ef33daf53703ff.jpg": {
+      "match_count": 1,
+      "total_human": 2,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        7.0
+      ]
+    },
+    "1690549028021516323_color_jpeg.rf.19b32e3eea369c12c5c13d9882e7e2b6.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        15.132745950421556
+      ]
+    },
+    "col_2023-08-23-12-37-25_1_png.rf.8c07c60064cf772d80749867b1976b28.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "distances": [
+        13.416407864998739,
+        15.524174696260024
+      ]
+    },
+    "col_2023-08-23-12-39-58_21_png.rf.b701dd942e3f3453df0a07967e5ef5e7.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 2,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "distances": [
+        6.324555320336759,
+        15.811388300841896
+      ]
+    },
+    "col_2023-08-23-12-40-20_27_png.rf.ae04f6fd459f597ba825d488b2400c64.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        10.04987562112089
+      ]
+    },
+    "col_2023-08-23-12-51-18_31_png.rf.73f3758b3ea5ff83c389dd23d130c35f.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "distances": [
+        15.811388300841896,
+        57.62811813689564
+      ]
+    },
+    "col_2023-08-23-13-01-39_3_png.rf.4a1d00f7efa3ec4f003cbd4d3ddd2ebc.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "distances": [
+        5.0990195135927845,
+        10.295630140987
+      ]
+    },
+    "col_2023-08-23-13-02-26_15_png.rf.e99c6ff1ca1bda21801d050aa46a64d8.jpg": {
+      "match_count": 3,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "distances": [
+        7.280109889280518,
+        16.55294535724685,
+        12.806248474865697
+      ]
+    },
+    "col_2023-08-23-13-21-07_43_png.rf.7ac618234f07ed35d04d6cd295fd2e28.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "distances": [
+        8.246211251235321,
+        8.94427190999916
+      ]
+    },
+    "col_2023-08-23-13-51-22_3_png.rf.09c325c3b9594f0ce9e962b005601d83.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 2,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "distances": [
+        21.02379604162864,
+        19.697715603592208
+      ]
+    },
+    "col_2023-08-23-13-55-31_38_png.rf.bef854a502b465863830861188c0e0e7.jpg": {
+      "match_count": 1,
+      "total_human": 3,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        12.041594578792296
+      ]
+    },
+    "col_2023-09-01-11-39-31_17_png.rf.408b180a9f91823a15826267fb7f9eac.jpg": {
+      "match_count": 3,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "distances": [
+        20.09975124224178,
+        14.866068747318506,
+        13.341664064126334
+      ]
+    },
+    "col_2024-01-11-12-55-54_9_png.rf.6dac84c10e57bcd8dca00b03b3a90b53.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        4.47213595499958
+      ]
+    },
+    "col_2024-01-11-16-36-05_35_png.rf.5bc99fb0a6c6aee3a8e749fa2e44de8e.jpg": {
+      "match_count": 3,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "distances": [
+        2.23606797749979,
+        4.0,
+        9.219544457292887
+      ]
+    },
+    "col_2023-08-23-12-38-59_4_png.rf.be72469f32246237418e41dbce50b0cd.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "distances": [
+        13.601470508735444,
+        5.0990195135927845
+      ]
+    },
+    "col_2023-08-23-12-39-06_6_png.rf.b20e615a9ea0a175ebc7119ddec29bbd.jpg": {
+      "match_count": 3,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "distances": [
+        6.4031242374328485,
+        6.4031242374328485,
+        7.0
+      ]
+    },
+    "col_2023-08-23-12-40-44_34_png.rf.a56a54e747d8445e0138e676f3e5d10c.jpg": {
+      "match_count": 3,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "distances": [
+        2.23606797749979,
+        2.8284271247461903,
+        2.23606797749979
+      ]
+    },
+    "col_2023-08-23-12-40-59_38_png.rf.b6382df1dc1da684198a886316ae0814.jpg": {
+      "match_count": 1,
+      "total_human": 1,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        8.94427190999916
+      ]
+    },
+    "col_2023-08-23-12-45-02_4_png.rf.c3ae4db6eea134c5e4fa1074315efb52.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "distances": [
+        6.082762530298219,
+        2.0
+      ]
+    },
+    "col_2023-08-23-12-45-20_9_png.rf.99872f990c2cbaabe69b290abff13006.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "distances": [
+        2.23606797749979,
+        6.082762530298219
+      ]
+    },
+    "col_2023-08-23-12-48-32_5_png.rf.d5cbbb495d445c5bb6c9b2b997bddf77.jpg": {
+      "match_count": 3,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "distances": [
+        5.0,
+        7.0710678118654755,
+        3.605551275463989
+      ]
+    },
+    "col_2023-08-23-12-50-26_16_png.rf.5c464a8b79804e8c6906b009832f05c2.jpg": {
+      "match_count": 1,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ]
+      ],
+      "distances": [
+        5.0
+      ]
+    },
+    "col_2023-08-23-12-52-30_52_png.rf.617a059bd366b16b4a54d1e0275cf53d.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 2,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "distances": [
+        6.708203932499369,
+        1.0
+      ]
+    },
+    "col_2023-08-23-13-02-29_16_png.rf.3980c6f7dc99773bf7b6b00b502bd5d2.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "distances": [
+        2.23606797749979,
+        2.0
+      ]
+    },
+    "col_2023-08-23-13-51-44_9_png.rf.70b3816dbf22059302a5c43650480eb9.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 2,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "distances": [
+        6.082762530298219,
+        7.615773105863909
+      ]
+    },
+    "col_2023-08-23-13-55-02_29_png.rf.c77b98324b41a51a66776a1951fdd7ee - Copia.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 2,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "distances": [
+        2.23606797749979,
+        4.0
+      ]
+    },
+    "col_2023-08-23-13-55-02_29_png.rf.c77b98324b41a51a66776a1951fdd7ee.jpg": {
+      "match_count": 2,
+      "total_human": 2,
+      "total_algo": 2,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "distances": [
+        3.0,
+        2.23606797749979
+      ]
+    },
+    "col_2023-08-23-13-55-21_35_png.rf.5b6c44244816205abd8cbc1a52c04081.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": false,
+      "matched_pairs": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "distances": [
+        4.242640687119285,
+        1.0
+      ]
+    },
+    "col_2023-08-23-13-55-34_39_png.rf.6ce5a4becc0b515de268e4d9cec95258.jpg": {
+      "match_count": 1,
+      "total_human": 3,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        2.23606797749979
+      ]
+    },
+    "col_2023-08-23-14-05-07_91_png.rf.3fb458936179c7a5693fb54658279e66.jpg": {
+      "match_count": 1,
+      "total_human": 2,
+      "total_algo": 1,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "distances": [
+        4.0
+      ]
+    },
+    "col_2023-08-23-14-11-58_146_png.rf.6a0512a6958396400324f588471699fa.jpg": {
+      "match_count": 2,
+      "total_human": 3,
+      "total_algo": 2,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "distances": [
+        1.4142135623730951,
+        3.0
+      ]
+    },
+    "col_2023-09-01-12-06-39_13_png.rf.08e80c9033d997eaa73aa4edf053e0cc.jpg": {
+      "match_count": 1,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          1,
+          0
+        ]
+      ],
+      "distances": [
+        9.848857801796104
+      ]
+    },
+    "col_2024-01-11-12-37-13_3_png.rf.721ac8d4115fb1eea24c1d76194afc49.jpg": {
+      "match_count": 3,
+      "total_human": 3,
+      "total_algo": 3,
+      "order_agreement": true,
+      "matched_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "distances": [
+        4.123105625617661,
+        6.4031242374328485,
+        5.0990195135927845
+      ]
+    },
+    "1690535645752771615_color_jpeg.rf.8310534d902c9b87f05ce69eed6ff45b.jpg": {
+      "false_positive": true,
+      "algo_targets": 3
+    },
+    "1690548936124384164_color_jpeg.rf.c809afea0fd839175dd9fd799acaad03.jpg": {
+      "false_positive": true,
+      "algo_targets": 3
+    },
+    "frame-30853_color_jpg.rf.b5a0ffafb5631df3200dcac58604f0f4.jpg": {
+      "false_positive": true,
+      "algo_targets": 1
+    }
+  },
+  "false_positives": {
+    "skipped_images_with_algo_targets": 3,
+    "total_skipped": 11,
+    "total_false_targets": 7
+  }
+}

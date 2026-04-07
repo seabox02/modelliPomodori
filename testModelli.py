@@ -6,15 +6,25 @@ import os
 # Configurazione modelli (V2 - 800px)
 # Aggiungi qui tutti i modelli che desideri testare
 model_configs = {
-    "Large 11": {
-        "path": "yolo11NewData6/weights/best.pt",
+    "Large 11New": {
+        "path": "runs/yolo11NewData6/weights/best.pt",
         "imgsz": 800,
         "dataset_tag": "NewData"
-    }
+    },
+    "Large 11": {
+        "path": "runs/640/large11DataOld-BEST/weights/best.pt",
+        "imgsz": 640,
+        "dataset_tag": "OldData"
+    },    
+    "ExtraLarge 26": {
+        "path": "runs/extralarge26Best/weights/best.pt",
+        "imgsz": 800,
+        "dataset_tag": "NewData"
+    }, 
 }
 
 dataset_yaml = "nuovoDatasetTest/data.yaml"
-conf_values = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7] # Intervallo di confidenza richiesto
+conf_values = [0.8,0.9] # Intervallo di confidenza richiesto
 results_list = []
 
 # Rilevamento hardware ottimizzato
